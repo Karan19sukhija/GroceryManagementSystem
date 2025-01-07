@@ -1,4 +1,4 @@
-# basic boiler plater code for flask
+# basic boiler plater code for flask application
 import json
 
 from flask import Flask, request, jsonify, g
