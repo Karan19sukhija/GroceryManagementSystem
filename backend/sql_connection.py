@@ -25,7 +25,7 @@ def get_sql_pool():
             host="localhost",
             database="grocery_store",
             user="root",
-            password="Network@17``1234@@"
+            password="root"  # has to be your mysql credentials here
         )
         return db_pool
     except mysql.connector.Error as err:
@@ -48,7 +48,7 @@ def get_sql_connection():
             host="localhost",
             database="grocery_store",
             user="root",
-            password="Network@17``1234@@"
+            password="root" # has to be your mysql credentials here
         )
         return db_conn
     except mysql.connector.Error as err:
