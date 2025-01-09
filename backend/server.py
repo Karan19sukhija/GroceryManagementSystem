@@ -2,6 +2,7 @@
 import json
 
 from flask import Flask, request, jsonify, g
+from flask_cors import CORS
 from sql_connection import get_sql_pool
 
 import products_dao
@@ -10,9 +11,12 @@ import order_dao
 
 app = Flask(__name__)
 
+# Allowing only this one domain or origin to have access to all the routes of our flask app.
+cors = CORS(app, resources={r'/*': {'origins': 'http://127.0.0.1:5000'}})
 
 # As soon the server is live, the connection is made to the database
 # This is the global connection that will be reused in subsequent calls as it's created outside the handler.
+# This is basically caching of the global variables so it can be reused across warm invocations.
 # Once closed, this global connection can't be reused, and any further operations throw an error.
 
 # Flask handles requests in isolation, and the same global connection might be shared by multiple threads,
@@ -111,5 +115,7 @@ def delete_order():
 
 
 if __name__ == "__main__":
+    # Note this is the development server only. Flask in this mode acts as a single thread server which means
+    # only 1 request at a time will be processed i.e. no concurrent access.
     print("Staring Python flask server for grocery store management system")
     app.run(port=5000)
